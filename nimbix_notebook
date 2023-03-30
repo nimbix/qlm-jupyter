@@ -1,33 +1,4 @@
 #!/bin/bash
-#
-# Copyright (c) 2019, Nimbix, Inc.
-# All rights reserved.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are met:
-#
-# 1. Redistributions of source code must retain the above copyright notice,
-#    this list of conditions and the following disclaimer.
-# 2. Redistributions in binary form must reproduce the above copyright notice,
-#    this list of conditions and the following disclaimer in the documentation
-#    and/or other materials provided with the distribution.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-# POSSIBILITY OF SUCH DAMAGE.
-#
-# The views and conclusions contained in the software and documentation are
-# those of the authors and should not be interpreted as representing official
-# policies, either expressed or implied, of Nimbix, Inc.
-#
 
 set -e
 
@@ -65,12 +36,12 @@ while getopts "r:s:c:p:lu:" opt; do
     esac
 done
 
-# default internal Jupyter port is 8888 unless overridden
-[[ -z "${PORT}" ]] && PORT=8888
+# default internal Jupyter port is 5902 unless overridden
+PORTNUM=${JARVICE_SERVICE_PORT:-5902}
+[[ -z "${PORT}" ]] && PORT=$PORTNUM
 
 # default base_url to '/'
 [[ -z "${BASEURL}" ]] && BASEURL='/'
-BASEURL='/'
 
 # fix up path as pip installs in different locations per python revision
 export PATH=$PATH:/usr/local/bin
@@ -93,9 +64,6 @@ PIP=$(which pip)
 
 [[ -n "$SCRIPT" ]] && source "$SCRIPT"
 
-# Start the redir daemon, redirecting the external port to the Jupyter listener
-#redir --laddr=0.0.0.0 --lport=443 --caddr=0.0.0.0 --cport=${PORT} &
-
 if [[ ! -z "${LOCAL_TESTING}" ]]; then
     # Create non-privileged user for local test
     useradd -m -s /bin/bash nimbix 2>&1 || /bin/true
@@ -105,7 +73,6 @@ if [[ ! -z "${LOCAL_TESTING}" ]]; then
 else
     cd /data
     exec jupyter notebook --ip=0.0.0.0 --no-browser --port=${PORT} \
-        --certfile=/etc/JARVICE/cert.pem \
         --NotebookApp.token=`cat /etc/JARVICE/random128.txt | cut -c 1-64` \
         --NotebookApp.base_url=${BASEURL}
 fi

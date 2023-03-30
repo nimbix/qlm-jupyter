@@ -39,7 +39,7 @@ chmod 04555 /usr/bin/redir
 cd /usr/local/bin
 cp /tmp/nimbix_notebook .
 
-chmod 555 /usr/local/bin/nimbix_notebook
+chmod 755 /usr/local/bin/nimbix_notebook
 
 mkdir -p /etc/NAE
 echo "https://%PUBLICADDR%/?token=%RANDOM64%" >/etc/NAE/url.txt

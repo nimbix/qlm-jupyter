@@ -99,3 +99,4 @@ scikit-build
 myqlm
 qiskit
 myqlm-interop
+qlmaas

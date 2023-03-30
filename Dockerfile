@@ -12,7 +12,7 @@ RUN apt-get update -y && apt-get -y install redir sudo python3-pip pkg-config li
 
 # Install the rest of the packages...
 COPY requirements.txt /tmp/requirements.txt
-RUN python3 -m pip install --upgrade pip && python3 -m pip install -r /tmp/requirements.txt
+RUN python3 -m pip install --upgrade pip && pip3 install -r /tmp/requirements.txt
 
 #ADD https://raw.githubusercontent.com/nimbix/notebook-common/${BRANCH:-master}/install-notebook-common /tmp/install-notebook-common
 #RUN export https_proxy=http://129.183.4.13:8080 && chmod 777 /tmp/install-notebook-common &&  /tmp/install-notebook-common -b master -3 && rm /tmp/install-notebook-common
@@ -22,6 +22,8 @@ COPY nimbix_notebook /tmp
 
 RUN chmod 755 /tmp/install-notebook-common && /tmp/install-notebook-common -b master -3 && rm /tmp/install-notebook-common
 RUN mkdir /data && chmod 01777 /data
+COPY nimbix_notebook /usr/local/bin/nimbix_notebook
+RUN chmod 755 /usr/local/bin/nimbix_notebook
 
 EXPOSE 443
 

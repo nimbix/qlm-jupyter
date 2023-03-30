@@ -1,2 +1,3 @@
-# tensorflow-latest
-Latest version of tensorflow from upstream Docker repository
+# qlm jupyter
+
+A Jarvice application to run Jupyter Hub with all libs for Quantum 

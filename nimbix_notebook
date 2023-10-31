@@ -72,6 +72,7 @@ if [[ ! -z "${LOCAL_TESTING}" ]]; then
         --NotebookApp.base_url=${BASEURL}"
 else
     cd /data
+    source /etc/JARVICE/jobenv.sh
     python3 -m qat.magics.install
     exec jupyter notebook --ip=0.0.0.0 --no-browser --port=${PORT} \
         --NotebookApp.token=`cat /etc/JARVICE/random128.txt | cut -c 1-64` \

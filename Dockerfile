@@ -29,6 +29,7 @@ RUN chmod 755 /usr/local/bin/nimbix_notebook
 EXPOSE 443
 
 COPY NAE/AppDef.json /etc/NAE/AppDef.json
+COPY NAE/screenshot.png /etc/NAE/screenshot.png
 COPY NAE/help.html /etc/NAE/help.html
 RUN echo "https://%PUBLICADDR%/?token=%RANDOM64%" >/etc/NAE/url.txt
 RUN curl --fail -X POST -d @/etc/NAE/AppDef.json https://cloud.nimbix.net/api/jarvice/validate

@@ -48,9 +48,9 @@ export PATH=$PATH:/usr/local/bin
 
 #Check for Anaconda
 if [[ -e /opt/conda/etc/profile.d/conda.sh ]]; then
-    CONDA_ENV="source /opt/conda/etc/profile.d/conda.sh && conda activate base"
+    CONDA_ENV="source /opt/conda/etc/profile.d/conda.sh && conda activate base && conda install -c conda-forge jupyter_contrib_nbextensions"
 elif [[ -e /etc/profile.d/conda.sh ]]; then
-    CONDA_ENV="source /etc/profile.d/conda.sh && conda activate base"
+    CONDA_ENV="source /etc/profile.d/conda.sh && conda activate base && conda install -c conda-forge jupyter_contrib_nbextensions"
 fi
 
 [[ -n "${CONDA_ENV}" ]] && eval ${CONDA_ENV}
@@ -72,7 +72,6 @@ if [[ ! -z "${LOCAL_TESTING}" ]]; then
         --NotebookApp.base_url=${BASEURL}"
 else
     cd /data
-    conda install -c conda-forge jupyter_contrib_nbextensions
     python3 -m qat.magics.install
     exec jupyter notebook --ip=0.0.0.0 --no-browser --port=${PORT} \
         --NotebookApp.token=`cat /etc/JARVICE/random128.txt | cut -c 1-64` \

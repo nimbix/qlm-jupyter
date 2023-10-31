@@ -25,6 +25,7 @@ RUN chmod 755 /tmp/install-notebook-common && /tmp/install-notebook-common -b ma
 RUN mkdir /data && chmod 01777 /data
 COPY nimbix_notebook /usr/local/bin/nimbix_notebook
 RUN chmod 755 /usr/local/bin/nimbix_notebook
+RUN jupyter contrib nbextension install
 
 EXPOSE 443
 

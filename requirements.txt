@@ -29,6 +29,7 @@ ipympl
 jedi
 Jinja2
 joblib
+jupyter_contrib_nbextensions
 jsonschema
 kiwisolver
 lxml

@@ -103,3 +103,4 @@ myqlm
 qiskit
 myqlm-interop
 qlmaas
+Wand

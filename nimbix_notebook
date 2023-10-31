@@ -72,8 +72,8 @@ if [[ ! -z "${LOCAL_TESTING}" ]]; then
         --NotebookApp.base_url=${BASEURL}"
 else
     cd /data
-    exec jupyter contrib nbextension install
-    exec python3 -m qat.magics.install
+    conda install -c conda-forge jupyter_contrib_nbextensions
+    python3 -m qat.magics.install
     exec jupyter notebook --ip=0.0.0.0 --no-browser --port=${PORT} \
         --NotebookApp.token=`cat /etc/JARVICE/random128.txt | cut -c 1-64` \
         --NotebookApp.base_url=${BASEURL}

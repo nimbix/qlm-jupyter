@@ -1,4 +1,5 @@
-FROM tensorflow/tensorflow:2.11.0
+#FROM tensorflow/tensorflow:2.11.0
+FROM python:3.10-bullseye
 LABEL maintainer="Nimbix, Inc." \
       license="BSD"
 

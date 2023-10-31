@@ -7,7 +7,7 @@ LABEL maintainer="Nimbix, Inc." \
 ARG SERIAL_NUMBER="1.0"
 ENV SERIAL_NUMBER ${SERIAL_NUMBER:-20221228.1000}
 
-RUN apt-get update -y && apt-get -y install redir sudo python3-pip pkg-config libfreetype6-dev && \
+RUN apt-get update -y && apt-get -y install redir sudo python3-pip pkg-config libfreetype6-dev ImageMagick && \
     chmod 04555 /usr/bin/redir && \
     apt-get clean
 

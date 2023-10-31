@@ -18,12 +18,14 @@ entrypoint
 executing
 fastjsonschema
 fonttools
+ImageMagic
 importlib-metadata
 importlib-resources
 ipykernel
 ipython
 ipython-genutils
 ipywidgets
+ipympl
 jedi
 Jinja2
 joblib

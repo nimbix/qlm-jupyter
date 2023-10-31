@@ -1,5 +1,5 @@
 #FROM tensorflow/tensorflow:2.11.0
-FROM python:3.10-bullseye
+FROM python:3.11-slim-bookworm
 LABEL maintainer="Nimbix, Inc." \
       license="BSD"
 

@@ -18,19 +18,40 @@
     ],
     "scale_max": 1,
     "commands": {
-        "Notebook": {
-            "path": "/usr/local/bin/nimbix_notebook",
-            "name": "Launch notebook",
+        "gui": {
+            "path": "/usr/local/scripts/start-viz.sh",
             "interactive": true,
-            "description": "Start Jupyter notebook with Python 3 and myQLM",
-            "url": "https://%PUBLICADDR%:5902/tree?token=%RANDOM64%",
+            "desktop": true,
+            "name": "QLM-GUI",
+            "description": "Run QLM in desktop",
+            "parameters": {}
+        },
+        "jupyter-lab": {
+            "path": "/usr/local/scripts/jupyter.sh",
+            "name": "Jupyter Lab",
+            "interactive": true,
+            "description": "Start Jupyter lab with Python 3",
+            "url": "https://%PUBLICADDR%:5902/?token=%RANDOM64%",
             "parameters": {
+                "-mode": {
+                "name": "Jupyter Mode",
+                "description": "Start Jupyter in specific mode",
+                "type": "selection",
+                "values": [
+                    "Lab"
+                ],
+                "mvalues": [
+                    "lab"
+                ],
+                "required": true,
+                "positional": false
+                },
                 "-r": {
-                    "name": "Requirements file",
-                    "description": "Path to requirements.txt file",
-                    "type": "FILE",
-                    "required": false,
-                    "positional": false
+                "name": "Requirements file",
+                "description": "Path to requirements.txt file",
+                "type": "FILE",
+                "required": false,
+                "positional": false
                 },
                 "basearg": {
                     "name": "base",
@@ -47,6 +68,72 @@
                     "value": "%BASEURL%",
                     "positional": true,
                     "required": true
+                }
+            }
+        },
+        "jupyter-notebook": {
+            "path": "/usr/local/scripts/jupyter.sh",
+            "name": "Jupyter Notebook",
+            "interactive": true,
+            "description": "Start Jupyter lab/notebook with Python 3",
+            "url": "https://%PUBLICADDR%:5902/tree?token=%RANDOM64%",
+            "parameters": {
+                "-mode": {
+                "name": "Jupyter Mode",
+                "description": "Start Jupyter in specific mode",
+                "type": "selection",
+                "values": [
+                    "Notebook"
+                ],
+                "mvalues": [
+                    "notebook"
+                ],
+                "required": true,
+                "positional": false
+                },
+                "-r": {
+                "name": "Requirements file",
+                "description": "Path to requirements.txt file",
+                "type": "FILE",
+                "required": false,
+                "positional": false
+                },
+                "basearg": {
+                    "name": "base",
+                    "description": "base url",
+                    "type": "CONST",
+                    "value": "-u",
+                    "positional": true,
+                    "required": true
+                },
+                "base": {
+                    "name": "base",
+                    "description": "base url",
+                    "type": "CONST",
+                    "value": "%BASEURL%",
+                    "positional": true,
+                    "required": true
+                }
+            }
+        },
+        "python": {
+            "path": "/usr/local/scripts/batch.sh",
+            "name": "Python",
+            "description": "Runs the command python3 INPUTFILE",
+            "parameters": {
+                "-i": {
+                "name": "Input File",
+                "type": "FILE",
+                "filter": "*.py",
+                "required": true,
+                "positional": false
+                },
+                "-r": {
+                    "name": "Requirements file",
+                    "description": "Path to requirements.txt file",
+                    "type": "FILE",
+                    "required": false,
+                    "positional": false
                 }
             }
         }

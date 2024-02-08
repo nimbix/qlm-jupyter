@@ -1,6 +1,5 @@
-#!/bin/bash
-#
-# Copyright (c) 2019, Nimbix, Inc.
+#!/usr/bin/env bash
+# Copyright (c) 2024, Nimbix, Inc.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -27,19 +26,38 @@
 # The views and conclusions contained in the software and documentation are
 # those of the authors and should not be interpreted as representing official
 # policies, either expressed or implied, of Nimbix, Inc.
-#
 
-set -x
 set -e
 
-chmod 04555 /usr/bin/redir
+# Source the JARVICE job environment variables
+[[ -r /etc/JARVICE/jobenv.sh ]] && . /etc/JARVICE/jobenv.sh
+[[ -r /etc/JARVICE/jobinfo.sh ]] && . /etc/JARVICE/jobinfo.sh
 
-#pip3 install --upgrade packaging appdirs jupyter
+# parse command line
+FILE=""
+REQUIREMENTS_FILE=""
+while [[ -n "$1" ]]; do
+  case "$1" in
+  -i)
+    shift
+    FILE="$1"
+    ;;
+  -r)
+    shift
+    REQUIREMENTS_FILE="$1"
+    python3.11 -m pip install --user -r $REQUIREMENTS_FILE
+    ;;
+  *)
+    echo "ERROR: Invalid argument: $1" >&2
+    exit 1
+    ;;
+  esac
+  shift
+done
 
-cd /usr/local/bin
-cp /tmp/nimbix_notebook .
+# CD into working directory
+echo "INFO: Work Directory: $(dirname $FILE)"
+cd "$(dirname $FILE)"
 
-chmod 755 /usr/local/bin/nimbix_notebook
-
-mkdir -p /etc/NAE
-echo "https://%PUBLICADDR%/?token=%RANDOM64%" >/etc/NAE/url.txt
+# run
+exec python3.11 $FILE

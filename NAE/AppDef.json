@@ -1,8 +1,8 @@
 {
-    "name": "Jupyter Notebook for Qaptiva (CPU)",
-    "description": "Jupyter notebook for Qaptiva",
-    "author": "Isoard",
-    "licensed": false,
+    "name": "Qaptiva as a Service",
+    "description": "Entrypoints for the Qaptiva service",
+    "author": "EVIDEN",
+    "licensed": true,
     "appdefversion": 2,
     "classifications": [
         "QLM"
@@ -16,19 +16,18 @@
         "BLOCK_ARRAY",
         "OBJECT"
     ],
-    "scale_max": 1,
     "commands": {
-        "gui": {
+        "qaptiva-desktop": {
             "path": "/usr/local/scripts/start-viz.sh",
             "interactive": true,
             "desktop": true,
-            "name": "QLM-GUI",
-            "description": "Run QLM in desktop",
+            "name": "Qaptiva Desktop",
+            "description": "Run Qaptiva in desktop",
             "parameters": {}
         },
-        "jupyter-lab": {
+        "qaptiva-myqlm-lab": {
             "path": "/usr/local/scripts/jupyter.sh",
-            "name": "Jupyter Lab",
+            "name": "Qaptiva myQLM Lab",
             "interactive": true,
             "description": "Start Jupyter lab with Python 3",
             "url": "https://%PUBLICADDR%:5902/?token=%RANDOM64%",
@@ -47,11 +46,11 @@
                 "positional": false
                 },
                 "-r": {
-                "name": "Requirements file",
-                "description": "Path to requirements.txt file",
-                "type": "FILE",
-                "required": false,
-                "positional": false
+                    "name": "Requirements file",
+                    "description": "Path to requirements.txt file",
+                    "type": "FILE",
+                    "required": false,
+                    "positional": false
                 },
                 "basearg": {
                     "name": "base",
@@ -71,11 +70,11 @@
                 }
             }
         },
-        "jupyter-notebook": {
+        "qaptiva-myqlm-notebook": {
             "path": "/usr/local/scripts/jupyter.sh",
-            "name": "Jupyter Notebook",
+            "name": "Qaptiva myQLM Notebook",
             "interactive": true,
-            "description": "Start Jupyter lab/notebook with Python 3",
+            "description": "Start Jupyter notebook with Python 3",
             "url": "https://%PUBLICADDR%:5902/tree?token=%RANDOM64%",
             "parameters": {
                 "-mode": {
@@ -92,11 +91,11 @@
                 "positional": false
                 },
                 "-r": {
-                "name": "Requirements file",
-                "description": "Path to requirements.txt file",
-                "type": "FILE",
-                "required": false,
-                "positional": false
+                    "name": "Requirements file",
+                    "description": "Path to requirements.txt file",
+                    "type": "FILE",
+                    "required": false,
+                    "positional": false
                 },
                 "basearg": {
                     "name": "base",
@@ -118,15 +117,15 @@
         },
         "python": {
             "path": "/usr/local/scripts/batch.sh",
-            "name": "Python",
+            "name": "Qaptiva Python",
             "description": "Runs the command python3 INPUTFILE",
             "parameters": {
                 "-i": {
-                "name": "Input File",
-                "type": "FILE",
-                "filter": "*.py",
-                "required": true,
-                "positional": false
+                    "name": "Input File",
+                    "type": "FILE",
+                    "filter": "*.py",
+                    "required": true,
+                    "positional": false
                 },
                 "-r": {
                     "name": "Requirements file",

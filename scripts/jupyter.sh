@@ -73,5 +73,5 @@ if [[ -z "${PS1}" ]]; then
 fi
 
 exec python3.11 -m jupyter ${MODE} --ip=0.0.0.0 --no-browser --port=${PORT} \
-    --NotebookApp.token=$(cat /etc/JARVICE/random128.txt | cut -c 1-64) \
-    --NotebookApp.base_url=${BASEURL}
+    --IdentityProvider.token=$(cat /etc/JARVICE/random128.txt | cut -c 1-64) \
+    --ServerApp.base_url=${BASEURL}

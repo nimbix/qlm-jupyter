@@ -2,7 +2,7 @@
 FROM rockylinux:9
 
 # Update SERIAL_NUMBER to force rebuild of all layers (don't use cached layers)
-ARG SERIAL_NUMBER="20240409.1000"
+ARG SERIAL_NUMBER="20240918.1000"
 ENV SERIAL_NUMBER=${SERIAL_NUMBER}
 
 RUN echo "max_parallel_downloads=20" >> /etc/dnf/dnf.conf
